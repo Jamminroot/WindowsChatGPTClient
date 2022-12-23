@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
     var theme = ThemeData.dark().copyWith(
         textButtonTheme: TextButtonThemeData(style: ButtonStyle(foregroundColor: MaterialStateProperty.resolveWith((state) => Constants.primaryColor))),
         scrollbarTheme: ScrollbarThemeData(
-          thumbColor: MaterialStateProperty.all(Constants.cardTitleColorInactive),
+          thumbColor: MaterialStateProperty.all(Constants.mainBackgroundColorDark),
         ));
     return MaterialApp(theme: theme, debugShowCheckedModeBanner: false, navigatorKey: navigatorKey, home: ExampleBrowser());
   }
