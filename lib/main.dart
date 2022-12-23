@@ -74,6 +74,7 @@ class _ExampleBrowser extends State<ExampleBrowser> {
       if (s == "leftMouseUp") {
         appWindow.show();
         appWindow.restore();
+        AppState.trimPage();
         AppState.windowStateChanged.add(true);
       }
     });
@@ -85,6 +86,7 @@ class _ExampleBrowser extends State<ExampleBrowser> {
           onClicked: () {
             appWindow.show();
             appWindow.restore();
+            AppState.trimPage();
             AppState.windowStateChanged.add(true);
           },
         ),
@@ -144,6 +146,7 @@ class _ExampleBrowser extends State<ExampleBrowser> {
       await _controller.setBackgroundColor(Colors.transparent);
       await _controller.setPopupWindowPolicy(WebviewPopupWindowPolicy.deny);
       await _controller.loadUrl('https://chat.openai.com/chat');
+      AppState.trimPage();
 
       if (!mounted) return;
       setState(() {});
@@ -187,9 +190,14 @@ class _ExampleBrowser extends State<ExampleBrowser> {
     } else {
       return Stack(
         children: [
-          Webview(
-            _controller,
-            permissionRequested: _onPermissionRequested,
+          MouseRegion(
+            onEnter: (ptr){
+              AppState.trimPage();
+            },
+            child: Webview(
+              _controller,
+              permissionRequested: _onPermissionRequested,
+            ),
           ),
           StreamBuilder<LoadingState>(
             stream: _controller.loadingState,
